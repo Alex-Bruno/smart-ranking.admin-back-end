@@ -6,8 +6,9 @@ import { Jogador } from './interfaces/jogador.interface';
 
 @Injectable()
 export class JogadoresService {
-    constructor(@InjectModel('Jogador') private readonly jogadorModel: Model<Jogador>) {
-    };
+    constructor(
+        @InjectModel('Jogador') private readonly jogadorModel: Model<Jogador>
+    ) {};
 
     private readonly logger = new Logger(JogadoresService.name);
 
