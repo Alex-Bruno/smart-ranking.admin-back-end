@@ -9,83 +9,83 @@ const ackErrors: string[] = [''];
 export class CategoriasController {
     constructor(private readonly categoriasService: CategoriasService) { }
 
-  logger = new Logger(CategoriasController.name);
+    logger = new Logger(CategoriasController.name);
 
-  @EventPattern('criar-categoria')
-  async criarCategoria(
-    @Payload() categoria: Categoria,
-    @Ctx() context: RmqContext
-  ) {
+    @EventPattern('criar-categoria')
+    async criarCategoria(
+        @Payload() categoria: Categoria,
+        @Ctx() context: RmqContext
+    ) {
 
-    const channel = context.getChannelRef();
-    const originalMsg = context.getMessage();
+        const channel = context.getChannelRef();
+        const originalMsg = context.getMessage();
 
-    this.logger.log(`Categoria: ${JSON.stringify(categoria)}`);
+        this.logger.log(`Categoria: ${JSON.stringify(categoria)}`);
 
-    try {
-      await this.categoriasService.criarCategoria(categoria);
-      await channel.ack(originalMsg);
-    } catch (error) {
-      this.logger.error(`error: ${JSON.stringify(error.message)}`);
+        try {
+            await this.categoriasService.criarCategoria(categoria);
+            await channel.ack(originalMsg);
+        } catch (error) {
+            this.logger.error(`error: ${JSON.stringify(error.message)}`);
 
-      const filterAckError = ackErrors.filter(
-        ackError => error.message.includes(ackError)
-      )
+            const filterAckError = ackErrors.filter(
+                ackError => error.message.includes(ackError)
+            )
 
-      if (filterAckError)
-        await channel.ack(originalMsg)
+            if (filterAckError)
+                await channel.ack(originalMsg)
+        }
+
     }
 
-  }
+    @MessagePattern('consultar-categorias')
+    async consultarCategorias(
+        @Payload() _id: string,
+        @Ctx() context: RmqContext
+    ) {
 
-  @MessagePattern('consultar-categorias')
-  async consultarCategorias(
-    @Payload() _id: string,
-    @Ctx() context: RmqContext
-  ) {
+        const channel = context.getChannelRef();
+        const originalMsg = context.getMessage();
 
-    const channel = context.getChannelRef();
-    const originalMsg = context.getMessage();
+        try {
 
-    try {
+            if (_id)
+                return await this.categoriasService.consultarCategoriaPeloId(_id);
+            return await this.categoriasService.consultarTodasCategorias();
 
-      if (_id)
-        return await this.categoriasService.consultarCategoriaPeloId(_id);
-      return await this.categoriasService.consultarTodasCategorias();
-
-    } finally {
-      await channel.ack(originalMsg)
-    }
-  }
-
-  @EventPattern('atualizar-categoria')
-  async atualizarCategoria(
-    @Payload() data: any,
-    @Ctx() context: RmqContext
-  ) {
-
-    const channel = context.getChannelRef();
-    const originalMsg = context.getMessage();
-
-    this.logger.log(`Categoria: ${JSON.stringify(data)}`);
-
-    try {
-      const _id: string = data.id;
-      const categoria: Categoria = data.categoria;
-
-      await this.categoriasService.atualizarCategoria(_id, categoria);
-      await channel.ack(originalMsg);
-
-    } catch (error) {
-      this.logger.error(`error: ${JSON.stringify(error.message)}`);
-
-      const filterAckError = ackErrors.filter(
-        ackError => error.message.includes(ackError)
-      )
-
-      if (filterAckError)
-        await channel.ack(originalMsg)
+        } finally {
+            await channel.ack(originalMsg)
+        }
     }
 
-  }
+    @EventPattern('atualizar-categoria')
+    async atualizarCategoria(
+        @Payload() data: any,
+        @Ctx() context: RmqContext
+    ) {
+
+        const channel = context.getChannelRef();
+        const originalMsg = context.getMessage();
+
+        this.logger.log(`Categoria: ${JSON.stringify(data)}`);
+
+        try {
+            const _id: string = data.id;
+            const categoria: Categoria = data.categoria;
+
+            await this.categoriasService.atualizarCategoria(_id, categoria);
+            await channel.ack(originalMsg);
+
+        } catch (error) {
+            this.logger.error(`error: ${JSON.stringify(error.message)}`);
+
+            const filterAckError = ackErrors.filter(
+                ackError => error.message.includes(ackError)
+            )
+
+            if (filterAckError)
+                await channel.ack(originalMsg)
+        }
+
+    }
 }
