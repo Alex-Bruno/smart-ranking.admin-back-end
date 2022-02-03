@@ -7,8 +7,7 @@ import { CategoriaSchema } from './interfaces/categoria.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Categoria', schema: CategoriaSchema }]),
-    MongooseModule.forFeature([{ name: 'Jogador', schema: JogadorSchema }]),
+    MongooseModule.forFeature([{ name: 'Categoria', schema: CategoriaSchema }])
   ],
   controllers: [CategoriasController],
   providers: [CategoriasService],
