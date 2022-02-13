@@ -38,7 +38,7 @@ npm install @nestjs/microservices
 npm install amqplib amqp-connection-manager
 npm install npm install @nestjs/mongoose mongoose
 npm install --save-dev @types/mongoose
-npm i --save @nestjs/config
+npm i @nestjs/config
 
 ## Stay in touch
 
