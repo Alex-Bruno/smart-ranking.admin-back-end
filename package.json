@@ -30,8 +30,9 @@
     "amqp-connection-manager": "^4.0.1",
     "amqplib": "^0.8.0",
     "install": "^0.13.0",
+    "moment-timezone": "^0.5.34",
     "mongoose": "^6.1.8",
-    "npm": "^8.4.0",
+    "npm": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
