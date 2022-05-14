@@ -85,6 +85,8 @@ export class CategoriasController {
 
             if (filterAckError)
                 await channel.ack(originalMsg)
+
+            await channel.nack(originalMsg);
         }
 
     }
