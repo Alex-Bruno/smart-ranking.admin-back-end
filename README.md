@@ -1,6 +1,10 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Construa um Backend resiliente e escalável com NestJS, RabbitMQ, serviços em cloud[AWS e SAP] e padrões arquiteturais corporativos.
+
+## Scopo
+
+Micro serviço responsável pelo controle de jogadores e categorias.
 
 ## Installation
 
@@ -34,19 +38,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 ## Dependences
-npm install @nestjs/microservices
-npm install amqplib amqp-connection-manager
-npm install npm install @nestjs/mongoose mongoose
-npm install --save-dev @types/mongoose
-npm i @nestjs/config
-npm install moment-timezone
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- npm install @nestjs/microservices
+- npm install amqplib amqp-connection-manager
+- npm install npm install @nestjs/mongoose mongoose
+- npm install --save-dev @types/mongoose
+- npm i @nestjs/config
+- npm install moment-timezone
